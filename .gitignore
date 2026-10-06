@@ -1,4 +1,3 @@
-# Archivos locales y estados de Terraform
 .terraform/
 *.tfstate
 *.tfstate.*
@@ -12,11 +11,9 @@ override.tf.json
 *.local.tfvars
 *.local.tfvars.json
 
-# Credenciales y configuración local
 .aws/
 .env
 .env.*
 !.env.example
 
-# Dependencias locales de las funciones
 node_modules/

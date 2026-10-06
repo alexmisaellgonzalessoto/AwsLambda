@@ -14,9 +14,40 @@ La arquitectura incluye una VPC, dos subredes públicas, dos privadas, dos NAT G
 
 ## Estado del proyecto
 
-Paso 1: Mermaid revisado y repositorio inicializado. Todavía no se ha creado infraestructura ni ejecutado Terraform.
+Paso 1 completado: Mermaid revisado y repositorio inicializado.
+
+Paso 2 en curso: AWS CLI y Terraform disponibles. No se encontraron perfiles de AWS configurados; la configuración del perfil y la comprobación de identidad están pendientes. No se ha creado infraestructura.
 
 Las instrucciones de configuración, despliegue, validación y destrucción se incorporarán aquí conforme avance cada paso. Las credenciales y los estados de Terraform quedan fuera del repositorio. El archivo `.terraform.lock.hcl` se versionará cuando se genere.
+
+## Requisitos comprobados
+
+- Git instalado.
+- AWS CLI: versión 2.37.7.
+- Terraform: versión 1.15.8.
+- Acceso a la cuenta AWS de la actividad: pendiente de configurar mediante un perfil.
+
+## Perfil de AWS y comprobación de identidad
+
+El método de configuración depende del acceso disponible: usuario IAM, credenciales temporales de laboratorio o IAM Identity Center. Se debe confirmar el método antes de configurar el perfil.
+
+Las credenciales permanecen fuera del proyecto. En Windows, AWS CLI utiliza por defecto la carpeta `%USERPROFILE%\.aws` para sus archivos de configuración y credenciales. No se deben copiar esos archivos al repositorio.
+
+Para consultar los perfiles existentes:
+
+```powershell
+aws configure list-profiles
+```
+
+Una vez configurado el perfil, sustituir `NOMBRE_DEL_PERFIL` por su nombre real y comprobar la identidad:
+
+```powershell
+aws sts get-caller-identity --profile NOMBRE_DEL_PERFIL --region us-east-1
+```
+
+El resultado debe mostrar la cuenta y la identidad utilizadas. Guardar una captura para la entrega sin mostrar claves ni tokens. Este comando consulta la identidad; no crea recursos.
+
+Fuentes oficiales: [Configuración y perfiles de AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) y [Consulta de identidad con STS](https://docs.aws.amazon.com/cli/latest/reference/sts/get-caller-identity.html).
 
 ## Observaciones pendientes de resolver
 
